@@ -21,6 +21,7 @@ const useWordleGame = () => {
       if (char === targetChars[index]) {
         feedbackRow[index] = "green";
         targetChars[index] = null;
+        console.log("Generate feedback 1: ", feedbackRow);
       }
     });
 
@@ -28,6 +29,7 @@ const useWordleGame = () => {
       if (feedbackRow[index] !== "green" && targetChars.includes(char)) {
         feedbackRow[index] = "yellow";
         targetChars[targetChars.indexOf(char)] = null;
+        //console.log("Generated feedback 2:", feedbackRow);
       }
     });
 
@@ -59,7 +61,7 @@ const useWordleGame = () => {
         setCurrentWordIndex(currentWordIndex + 1);
         resetGameState();
       } else {
-        openModal("You’ve completed the game!");
+        openModal("You've completed the game!");
         resetGameState(true);
       }
     }

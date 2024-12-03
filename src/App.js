@@ -1,7 +1,8 @@
 import React from "react";
 import Header from "./components/header/Header";
 import WordleBoard from "./components/wordle-board/WordleBoard";
-import Modal from "./components/game-ending/GameEnding";
+import CustomModal from "./components/custom-modal/CustomModal";
+import IntroModal from "./components/intro-modal/IntroModal";
 import useWordleGame from "./hooks/useWordleGame";
 import "./App.scss";
 
@@ -28,7 +29,7 @@ function App() {
             onGuess={handleGuess}
             currentRow={currentRow}
           />
-          <Modal
+          <CustomModal
             isOpen={isModalOpen}
             message={modalMessage}
             onClose={closeModal}
@@ -37,6 +38,7 @@ function App() {
       ) : (
         <p>Loading word list...</p>
       )}
+      <IntroModal />
     </div>
   );
 }

@@ -1,17 +1,18 @@
 import React from "react";
-import "./GameEnding.scss";
+import "./CustomModal.scss";
 
-const GameEnding = ({ isOpen, message, onClose }) => {
+const CustomModal = ({ isOpen, message, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <p>{message}</p>
+        {message && <p>{message}</p>}
+        {children}
         <button onClick={onClose}>Close</button>
       </div>
     </div>
   );
 };
 
-export default GameEnding;
+export default CustomModal;
