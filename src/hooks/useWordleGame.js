@@ -1,5 +1,6 @@
 import { useState } from "react";
 import wordList from "../assets/wordList.json";
+import { generateFeedback } from "../utils/generateFeedback";
 
 const useWordleGame = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -12,26 +13,7 @@ const useWordleGame = () => {
   const targetWord = wordList[currentWordIndex]?.toUpperCase() || "";
 
   const handleGuess = (guess) => {
-
-    const feedbackRow = Array(5).fill("");
-    const targetChars = targetWord.split("");
-    const guessChars = guess.split("");
-
-    guessChars.forEach((char, index) => {
-      if (char === targetChars[index]) {
-        feedbackRow[index] = "green";
-        targetChars[index] = null;
-        console.log("Generate feedback 1: ", feedbackRow);
-      }
-    });
-
-    guessChars.forEach((char, index) => {
-      if (feedbackRow[index] !== "green" && targetChars.includes(char)) {
-        feedbackRow[index] = "yellow";
-        targetChars[targetChars.indexOf(char)] = null;
-        //console.log("Generated feedback 2:", feedbackRow);
-      }
-    });
+    const feedbackRow = generateFeedback(guess, targetWord);
 
     const updatedGuesses = [...guesses];
     updatedGuesses[currentRow] = guess;
@@ -42,12 +24,12 @@ const useWordleGame = () => {
     setFeedback(updatedFeedback);
 
     if (guess.toUpperCase() === targetWord) {
-      openModal("Congratulations! You guessed the word!");
+      openModal("Congratulations! You guessed the word correctly!");
       if (currentWordIndex < wordList.length - 1) {
         setCurrentWordIndex(currentWordIndex + 1);
         resetGameState();
       } else {
-        openModal("You’ve completed the game!");
+        openModal("You've completed the game!");
         resetGameState(true);
       }
       return;
